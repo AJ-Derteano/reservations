@@ -68,16 +68,3 @@ jobs:
         run: |
           echo "$AWS_EC2_KEY" > private_key.pem
           chmod 600 private_key.pem
-          ssh -o StrictHostKeyChecking=no -i private_key.pem ${AWS_EC2_USER}@${AWS_EC2_HOST} << OEF
-            echo "Conectado al servidor."
-            cd deploy/reservationapp/
-            echo "Actualizando el repositorio..."
-            docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GIT_TOKEN }}
-            docker pull ghcr.io/aj-derteano/reservations-api:latest
-            echo "Repositorio actualizado."
-            echo "Reiniciando el contenedor..."
-            docker stop ghcr.io/aj-derteano/reservations-api && docker rm ghcr.io/aj-derteano/reservations-api
-            echo "Contenedor reiniciado."
-            echo "Iniciando el contenedor..."
-            docker-compose up --build -d
-          OEF
