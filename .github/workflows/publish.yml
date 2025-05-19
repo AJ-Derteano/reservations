@@ -80,3 +80,4 @@ jobs:
             echo "Contenedor reiniciado."
             echo "Iniciando el contenedor..."
             docker-compose up --build -d
+          OEF
