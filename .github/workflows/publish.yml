@@ -67,5 +67,8 @@ jobs:
       - name: SSH into EC2 instance
         run: |
           echo "$AWS_EC2_KEY" > private_key.pem
+          echo ${AWS_EC2_USER}
+          echo ${AWS_EC2_HOST}
+          echo "$AWS_EC2_KEY"
           chmod 600 private_key.pem
-          ssh -i "private_key.pem" ${AWS_EC2_USER}@${AWS_EC2_HOST}
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ${AWS_EC2_USER}@${AWS_EC2_HOST} "echo Conectado exitosamente"
