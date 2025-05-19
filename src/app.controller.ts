@@ -5,7 +5,7 @@ export class AppController {
   @Get()
   getHealthy(): { status: string } {
     return {
-      status: 'success',
+      status: 'success ok',
     };
   }
 }
