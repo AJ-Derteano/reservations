@@ -79,5 +79,5 @@ jobs:
             docker stop ghcr.io/aj-derteano/reservations-api && docker rm ghcr.io/aj-derteano/reservations-api
             echo "Contenedor reiniciado."
             echo "Iniciando el contenedor..."
-            docker-compose up --build -d
+            docker compose up --build -d
           OEF
