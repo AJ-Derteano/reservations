@@ -20,6 +20,7 @@ export default registerAs('config', () => {
     EMAIL_API_HOST: process.env.EMAIL_API_HOST,
     EMAIL_API_PORT: process.env.EMAIL_API_PORT,
     EMAIL_API_PATH: process.env.EMAIL_API_PATH,
+    EMAIL_API_KEY: process.env.EMAIL_API_KEY,
   };
 });
 
@@ -41,4 +42,5 @@ export const configJoiSchema: Joi.ObjectSchema = Joi.object({
   EMAIL_API_HOST: Joi.string().required(),
   EMAIL_API_PORT: Joi.number().required(),
   EMAIL_API_PATH: Joi.string().required(),
+  EMAIL_API_KEY: Joi.string().required(),
 });
