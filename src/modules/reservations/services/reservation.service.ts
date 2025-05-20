@@ -26,7 +26,7 @@ export class ReservationService {
   async create(
     username: string,
     dto: CreateReservationDto,
-  ): Promise<ReservationEntity> {
+  ): Promise<{ id: number }> {
     try {
       const {
         resourceId,
@@ -45,12 +45,18 @@ export class ReservationService {
       const resource = await this.resourceService.findResourceById(resourceId);
 
       if (!resource) {
-        throw new Error('Resource not found');
+        new ErrorManager({
+          type: 'BAD_REQUEST',
+          message: 'Resource not found',
+        });
       }
 
       // Check if the resource is available
       if (!resource.isAvailable) {
-        throw new Error('Resource is not available');
+        new ErrorManager({
+          type: 'BAD_REQUEST',
+          message: 'Resource is not available',
+        });
       }
 
       const occupiedResources = await this.reservationRepository
@@ -110,13 +116,22 @@ export class ReservationService {
           reservationStatus: savedReservation.status,
         });
 
-      this.notificationService.sendEmail({
-        to: user.email,
-        subject: 'Reservation Confirmation',
-        text: emailTemplate,
-      });
+      try {
+        this.notificationService.sendEmail({
+          to: user.email,
+          subject: 'Reservation Confirmation',
+          text: emailTemplate,
+        });
+      } catch {
+        new ErrorManager({
+          type: 'BAD_REQUEST',
+          message: 'Error send email',
+        });
+      }
 
-      return savedReservation;
+      return {
+        id: savedReservation.id,
+      };
     } catch (error) {
       throw ErrorManager.createSignatureError(error.message);
     }
@@ -146,7 +161,7 @@ export class ReservationService {
   ): Promise<ReservationEntity[]> {
     try {
       const offset = (pagination.page - 1) * pagination.limit;
-      console.log('offset', offset);
+
       const reservations = await this.reservationRepository
         .createQueryBuilder('reservation')
         .leftJoinAndSelect('reservation.resource', 'resource')

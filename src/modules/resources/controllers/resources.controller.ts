@@ -32,7 +32,7 @@ export class ResourcesController {
 
   @UseGuards(JwtGuard, RoleGuard)
   @Roles(UserRoles.ADMIN)
-  @Post()
+  @Post('create')
   @UseInterceptors(FilesInterceptor('images'))
   async createResource(
     @UploadedFiles() images: Array<Express.Multer.File>,
