@@ -53,6 +53,8 @@ export class AuthController {
   async googleAuthRedirect(@Req() req, @Res() res) {
     const { access_token } = req.user as any;
 
-    return res.redirect(`http://localhost:5173/callback?token=${access_token}`);
+    return res.redirect(
+      `https://ajderteano.nom.pe/callback?token=${access_token}`,
+    );
   }
 }
