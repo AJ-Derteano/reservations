@@ -22,10 +22,7 @@ export const DataSourceConfig: DataSourceOptions = {
   namingStrategy: new SnakeNamingStrategy(),
   connectTimeoutMS: 30000,
   poolSize: 30,
-  ssl:
-    configService.get('DB_SSL') === true
-      ? { rejectUnauthorized: true }
-      : undefined,
+  ssl: { rejectUnauthorized: true },
 };
 
 export const AppDS = new DataSource(DataSourceConfig);
