@@ -17,9 +17,6 @@ export default registerAs('config', () => {
     DB_SSL: process.env.DB_SSL,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
-    EMAIL_API_HOST: process.env.EMAIL_API_HOST,
-    EMAIL_API_PORT: process.env.EMAIL_API_PORT,
-    EMAIL_API_PATH: process.env.EMAIL_API_PATH,
     EMAIL_API_KEY: process.env.EMAIL_API_KEY,
   };
 });
@@ -39,8 +36,5 @@ export const configJoiSchema: Joi.ObjectSchema = Joi.object({
   DB_SSL: Joi.boolean().required().default(false),
   GOOGLE_CLIENT_ID: Joi.string().required(),
   GOOGLE_CLIENT_SECRET: Joi.string().required(),
-  EMAIL_API_HOST: Joi.string().required(),
-  EMAIL_API_PORT: Joi.number().required(),
-  EMAIL_API_PATH: Joi.string().required(),
   EMAIL_API_KEY: Joi.string().required(),
 });
