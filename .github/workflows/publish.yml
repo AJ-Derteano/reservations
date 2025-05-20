@@ -75,9 +75,14 @@ jobs:
             docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GIT_TOKEN }}
             docker pull ghcr.io/aj-derteano/reservations-api:latest
             echo "Repositorio actualizado."
+            
             echo "Reiniciando el contenedor..."
             docker stop ghcr.io/aj-derteano/reservations-api && docker rm ghcr.io/aj-derteano/reservations-api
             echo "Contenedor reiniciado."
+
             echo "Iniciando el contenedor..."
             docker compose up --build -d
+
+            echo "Eliminando imágenes no utilizadas..."
+            docker image prune -f
           OEF
